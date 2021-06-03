@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +62,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.buttonsave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!binding.DialerScreen.getText().toString().isEmpty())
+                {
+                    String ph_no=binding.DialerScreen.getText().toString();
+                    Intent intent=new Intent(Intent.ACTION_INSERT);
+
+                    intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+
+                    intent.putExtra(ContactsContract.Intents.Insert.PHONE,ph_no);
+
+                    startActivity(intent);
+
+                }
+            }
+        });
 
         binding.buttoncall.setOnClickListener(v -> {
             if(binding.DialerScreen.getText().toString().length()>0)
